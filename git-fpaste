@@ -1,0 +1,91 @@
+#!/bin/bash
+
+# Copyright ⓒ 2015 Mattias Bengtsson
+#
+# git-fpaste is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# git-fpaste is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with git-fpaste.  If not, see <http://www.gnu.org/licenses/>.
+#
+# Author: Mattias Bengtsson <mattias.jc.bengtsson@gmail.com>
+
+function am {
+    if [ $# -lt 1 ]; then
+        echo "Usage: git fpaste am [git-am options] <url>"
+        exit 1
+    else
+        url="${@: -1}/raw/"
+        am_args="${@:1:$(($#-1))}"
+
+        curl "${url}" 2>/dev/null | git am "${am_args}"
+    fi
+}
+
+function apply {
+    if [ $# -lt 1 ]; then
+        echo "Usage: git fpaste apply [git-apply options] <url>"
+        exit 1
+    else
+        url="${@: -1}/raw/"
+        apply_args="${@:1:$(($#-1))}"
+
+        curl "${url}" 2>/dev/null | git apply "${apply_args}"
+    fi
+}
+
+function diff {
+    if [ $# -lt 1 ]; then
+        echo "Usage: git fpaste diff [git-diff options]"
+        exit 1
+    else
+        git diff $@ | fpaste -l diff -n `whoami` --confirm
+    fi    
+}
+
+function format-patch {
+    if [ $# -lt 1 ]; then
+        echo "Usage: git fpaste format-patch [git-format-patch options]"
+        exit 1
+    else
+        git format-patch --stdout $@ | fpaste -l diff -n `whoami` --confirm
+    fi
+}
+
+cmd="${1}"
+shift
+echo $@
+case "${cmd}" in
+    am)
+        am "$@"
+        ;;
+
+    apply)
+        apply "$@"
+        ;;
+
+    diff)
+        diff "$@"
+        ;;
+
+    format-patch)
+        format-patch "$@"
+        ;;
+
+    *)
+        echo "Usage: git fpaste <command> [<args>]"
+        echo
+        echo "The available git-fpaste commands are:"
+        echo "   am             Apply a mailbox formatted patch series from fpaste"
+        echo "   apply          Apply a patch from fpaste"
+        echo "   diff           Post changes between commits to fpaste"
+        echo "   format-patch   Post a mailbox formatted patch series to fpaste"
+        exit 1
+esac
