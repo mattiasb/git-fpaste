@@ -56,7 +56,7 @@ function format-patch {
 
 cmd="${1}"
 shift
-echo $@
+
 case "${cmd}" in
     am)
         am "$@"
