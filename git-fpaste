@@ -42,12 +42,7 @@ function apply {
 }
 
 function diff {
-    if [ $# -lt 1 ]; then
-        echo "Usage: git fpaste diff [git-diff options]"
-        exit 1
-    else
-        git diff $@ | fpaste -l diff -n `whoami` --confirm
-    fi    
+    git diff $@ | fpaste -l diff -n `whoami` --confirm
 }
 
 function format-patch {
