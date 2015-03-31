@@ -22,10 +22,13 @@ function am {
         echo "Usage: git fpaste am [git-am options] <url>"
         exit 1
     else
-        url="${@: -1}/raw/"
+        url="${@: -1}"
         am_args="${@:1:$(($#-1))}"
+        if [[ ! "$url" =~ "/raw" ]]; then
+            url="${url}/raw/"
+        fi
 
-        curl "${url}" 2>/dev/null | git am "${am_args}"
+        curl "${url}" 2>/dev/null | git am $am_args
     fi
 }
 
@@ -34,8 +37,11 @@ function apply {
         echo "Usage: git fpaste apply [git-apply options] <url>"
         exit 1
     else
-        url="${@: -1}/raw/"
+        url="${@: -1}"
         apply_args="${@:1:$(($#-1))}"
+        if [[ ! "$url" =~ "/raw" ]]; then
+            url="${url}/raw/"
+        fi
 
         curl "${url}" 2>/dev/null | git apply "${apply_args}"
     fi
