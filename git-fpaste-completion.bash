@@ -48,14 +48,12 @@ _git_fpaste () {
 # completion when returning an empty COMPREPLY.
 # As a workaround return a COMPREPLY with one element: the empty string and
 # echo the bel character.
-__no_file_fallback ()
-{
+__no_file_fallback () {
     echo -en "\a"
     COMPREPLY=( '' )
 }
 
-_git_fpaste_am ()
-{
+_git_fpaste_am () {
     case "$cur" in
         --*)
             _git_am
@@ -66,8 +64,7 @@ _git_fpaste_am ()
     esac
 }
 
-_git_fpaste_apply ()
-{
+_git_fpaste_apply () {
     case "$cur" in
         --*)
             _git_apply
