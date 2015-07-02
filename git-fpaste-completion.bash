@@ -26,21 +26,11 @@ _git_fpaste () {
     fi
 
     case "$subcommand" in
-	am)
-	    _git_fpaste_am
-	    ;;
-	apply)
-	    _git_fpaste_apply
-	    ;;
-	diff)
-	    _git_diff
-	    ;;
-        format-patch)
-            _git_format_patch
-            ;;
-	*)
-            COMPREPLY=()
-            ;;
+        am)	        _git_fpaste_am          ;;
+        apply)	        _git_fpaste_apply       ;;
+        diff)	        _git_diff               ;;
+        format-patch)   _git_format_patch       ;;
+        *)              COMPREPLY=()            ;;
     esac
 }
 
@@ -55,22 +45,14 @@ __no_file_fallback () {
 
 _git_fpaste_am () {
     case "$cur" in
-        --*)
-            _git_am
-            ;;
-        *)
-            __no_file_fallback
-            ;;
+        --*)   _git_am             ;;
+        *)     __no_file_fallback  ;;
     esac
 }
 
 _git_fpaste_apply () {
     case "$cur" in
-        --*)
-            _git_apply
-            ;;
-        *)
-            __no_file_fallback
-            ;;
+        --*)   _git_apply          ;;
+        *)     __no_file_fallback  ;;
     esac
 }

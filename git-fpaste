@@ -64,22 +64,10 @@ cmd="${1}"
 shift
 
 case "${cmd}" in
-    am)
-        am "$@"
-        ;;
-
-    apply)
-        apply "$@"
-        ;;
-
-    diff)
-        diff "$@"
-        ;;
-
-    format-patch)
-        format-patch "$@"
-        ;;
-
+    am)           am           "$@" ;;
+    apply)        apply        "$@" ;;
+    diff)         diff         "$@" ;;
+    format-patch) format-patch "$@" ;;
     *)
         echo "Usage: git fpaste <command> [<args>]"
         echo
