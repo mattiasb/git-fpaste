@@ -2,7 +2,7 @@ USER_INSTALL_PREFIX=$(HOME)/.local
 SYSTEM_INSTALL_PREFIX=/usr/local
 
 COMPLETION=git-fpaste-completion.bash
-COMPLETION_INSTALL_PATH=/share/bash-completion/completions/
+COMPLETION_INSTALL_PATH=share/bash-completion/completions
 
 user-install: /usr/bin/curl /usr/bin/fpaste
 	install -D git-fpaste $(USER_INSTALL_PREFIX)/bin/
