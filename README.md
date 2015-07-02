@@ -23,14 +23,12 @@ $ make install      # Install to /usr/local/bin/
 If you installed git-fpaste with `make user-install` you need to add the following script to your `~/.bashrc` to get completion working.
 
 ```bash
-function _load_completions {
-    for comp in "${1}"; do
-        if [ -f "${comp}" ] ; then
-            . $comp
-        fi
-    done
-}
-_load_completions `ls -w1 ${HOME}/.local/share/bash-completion/completions/*`
+for comp in ${HOME}/.local/share/bash-completion/completions/* ; do
+    if [ -f "${comp}" ] ; then
+        . $comp
+    fi
+done
+
 ```
 
 
