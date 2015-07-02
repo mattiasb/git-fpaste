@@ -8,13 +8,13 @@ user-install: /usr/bin/curl /usr/bin/fpaste
 	install -D git-fpaste $(USER_INSTALL_PREFIX)/bin/
 	install -m 644 -D 						\
 		$(COMPLETION)						\
-		$(USER_INSTALL_PREFIX)/$(COMPLETION_INSTALL_PATH)/$(COMPLETION)
+		$(USER_INSTALL_PREFIX)/$(COMPLETION_INSTALL_PATH)/$(COMPLETION:-completion.bash=)
 
 install: /usr/bin/curl /usr/bin/fpaste
 	install -D git-fpaste $(SYSTEM_INSTALL_PREFIX)/bin/
 	install -m 644 -D 						\
 		$(COMPLETION)						\
-		$(SYSTEM_INSTALL_PREFIX)/$(COMPLETION_INSTALL_PATH)/$(COMPLETION)
+		$(SYSTEM_INSTALL_PREFIX)/$(COMPLETION_INSTALL_PATH)/$(COMPLETION:-completion.bash=)
 
 /usr/bin/curl:
 	pkcon install curl
